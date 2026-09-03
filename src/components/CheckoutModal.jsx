@@ -22,20 +22,29 @@ export default function CheckoutModal({ isOpen, onClose }) {
     e.preventDefault();
     
     // Construct WhatsApp Message
-    let message = `*NUEVO PEDIDO - TITAN NUTRITION* 🏋️‍♂️\n\n`;
-    message += `*Datos del Cliente:*\n`;
-    message += `👤 Nombre: ${formData.fullName}\n`;
-    message += `📞 Teléfono: ${formData.phone}\n`;
-    message += `📍 Dirección: ${formData.address}\n`;
-    message += `💳 Método de Pago: ${formData.paymentMethod}\n\n`;
+    let message = `*NUEVO PEDIDO - TITAN NUTRITION*\n`;
+    message += `================================\n\n`;
     
-    message += `*Resumen del Pedido:*\n`;
+    message += `*DATOS DEL CLIENTE*\n`;
+    message += `--------------------------------\n`;
+    message += `Nombre:    ${formData.fullName}\n`;
+    message += `Telefono:  ${formData.phone}\n`;
+    message += `Direccion: ${formData.address}\n`;
+    message += `Pago:      ${formData.paymentMethod}\n\n`;
+    
+    message += `*RESUMEN DEL PEDIDO*\n`;
+    message += `--------------------------------\n`;
     cartItems.forEach(item => {
-      message += `- ${item.quantity}x ${item.name} (${item.flavor} | ${item.size}) - $${(item.price * item.quantity).toLocaleString('es-CO')}\n`;
+      message += `[${item.quantity}x] ${item.name}\n`;
+      message += `      Sabor: ${item.flavor}\n`;
+      message += `      Peso:  ${item.size}\n`;
+      message += `      Valor: $${(item.price * item.quantity).toLocaleString('es-CO')}\n\n`;
     });
     
-    message += `\n*TOTAL A PAGAR:* $${cartTotal.toLocaleString('es-CO')}\n\n`;
-    message += `¡Quedo a la espera de la confirmación de mi pedido!`;
+    message += `================================\n`;
+    message += `*TOTAL A PAGAR: $${cartTotal.toLocaleString('es-CO')}*\n`;
+    message += `================================\n\n`;
+    message += `Quedo a la espera de la confirmacion de mi pedido.`;
 
     // Encode and open WhatsApp
     const whatsappNumber = '573217214397'; 
