@@ -26,12 +26,12 @@ export default function Hero() {
       <Navbar variant="transparent" />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 pt-16 md:pt-20 animate-fade-in">
-        <span className="text-brand-accent text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase mb-4 md:mb-6">Potencia tu rendimiento</span>
-        <h2 className="text-6xl sm:text-7xl md:text-[9rem] leading-[0.9] font-serif font-black text-white mb-6 md:mb-8 tracking-tighter uppercase drop-shadow-2xl">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 pt-16 pb-20 md:pb-24 animate-fade-in">
+        <span className="text-brand-accent text-[9px] md:text-xs font-bold tracking-[0.4em] uppercase mb-4 md:mb-6">Potencia tu rendimiento</span>
+        <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] leading-[0.9] font-serif font-black text-white mb-6 md:mb-8 tracking-tighter uppercase drop-shadow-2xl">
           Supera tus <br/><span className="text-brand-accent italic">Límites</span>
         </h2>
-        <p className="text-xs sm:text-sm md:text-base font-bold text-zinc-300 mb-8 md:mb-12 max-w-xl drop-shadow-md px-4 uppercase tracking-[0.2em] leading-relaxed opacity-90">
+        <p className="text-[10px] sm:text-xs md:text-sm font-bold text-zinc-300 mb-8 md:mb-10 max-w-xl drop-shadow-md px-4 uppercase tracking-[0.2em] leading-relaxed opacity-90">
           Nutrición deportiva de élite para resultados reales. No hay atajos.
         </p>
         

@@ -38,7 +38,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
     message += `¡Quedo a la espera de la confirmación de mi pedido!`;
 
     // Encode and open WhatsApp
-    const whatsappNumber = '573000000000'; // Replace with real number
+    const whatsappNumber = '573217214397'; 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
     
