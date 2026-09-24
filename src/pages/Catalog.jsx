@@ -82,8 +82,8 @@ export default function Catalog() {
   const openModal = (product) => {
     setSelectedProduct(product);
     setQuantity(1);
-    setSelectedSize(sizes[1]);
-    setSelectedFlavor(product.flavors[0]);
+    setSelectedSize(product.sizes ? product.sizes[0] : 'Única');
+    setSelectedFlavor(product.flavors ? product.flavors[0] : 'Sin Sabor');
     document.body.style.overflow = 'hidden';
   };
 
@@ -150,7 +150,7 @@ export default function Catalog() {
           <div className="mb-6 md:mb-8 shrink-0">
             <span className="text-[9px] md:text-[11px] font-bold tracking-[0.15em] text-zinc-900 uppercase block mb-2">Presentación / Peso</span>
             <div className="grid grid-cols-4 gap-1.5 md:gap-2">
-              {sizes.map(size => (
+              { (selectedProduct.sizes || ['Única']).map(size => (
                 <button 
                   key={size}
                   onClick={() => setSelectedSize(size)}

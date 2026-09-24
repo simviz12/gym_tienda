@@ -107,9 +107,33 @@ export default function AdminPanel() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-2">URL de la Imagen</label>
-              <input required type="url" name="image" value={formData.image} onChange={handleChange} className="w-full border border-zinc-300 p-3 rounded-md focus:ring-2 focus:ring-brand-accent focus:border-transparent" placeholder="https://ejemplo.com/imagen.jpg" />
-              <p className="mt-1 text-[10px] text-zinc-500">Usa URLs de imágenes. Recomendado: Imágenes cuadradas sin fondo o fondo blanco.</p>
+              <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-2">Imagen del Producto (Sube un archivo o pega una URL)</label>
+              <div className="flex gap-4">
+                <input 
+                  type="url" 
+                  name="image" 
+                  value={formData.image} 
+                  onChange={handleChange} 
+                  className="w-full border border-zinc-300 p-3 rounded-md focus:ring-2 focus:ring-brand-accent focus:border-transparent" 
+                  placeholder="URL de imagen o usa el botón de archivo ->" 
+                />
+                <input 
+                  type="file" 
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setFormData({ ...formData, image: reader.result });
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                  className="w-full border border-zinc-300 p-2 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-zinc-100 file:text-zinc-700 hover:file:bg-zinc-200"
+                />
+              </div>
+              <p className="mt-1 text-[10px] text-zinc-500">Puedes subir un archivo desde tu PC, automáticamente se guardará para que se vea bien.</p>
             </div>
 
             <div>
