@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { addProduct } from '../utils/productUtils';
+import React, { useState, useEffect } from 'react';
+import { addProduct, getProducts, deleteProduct } from '../utils/productUtils';
 import { useNavigate } from 'react-router-dom';
 
 export default function AdminPanel() {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     brand: '',
@@ -16,8 +17,19 @@ export default function AdminPanel() {
   });
   const [message, setMessage] = useState('');
 
+  useEffect(() => {
+    setProducts(getProducts());
+  }, []);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDelete = (id) => {
+    deleteProduct(id);
+    setProducts(getProducts());
+    setMessage('Producto eliminado con éxito.');
+    setTimeout(() => setMessage(''), 3000);
   };
 
   const handleSubmit = (e) => {
@@ -32,6 +44,7 @@ export default function AdminPanel() {
     };
 
     addProduct(product);
+    setProducts(getProducts());
     setMessage(`¡Producto "${product.name}" agregado con éxito!`);
     
     setFormData({
@@ -122,6 +135,36 @@ export default function AdminPanel() {
               </button>
             </div>
           </form>
+        </div>
+
+        {/* Product List */}
+        <div className="bg-zinc-50 px-6 py-8 border-t border-zinc-200">
+          <h3 className="text-xl font-serif font-black text-zinc-900 uppercase tracking-wider mb-6">Productos Existentes ({products.length})</h3>
+          
+          {products.length === 0 ? (
+            <p className="text-zinc-500 text-sm">No hay productos en el inventario.</p>
+          ) : (
+            <div className="space-y-4">
+              {products.map(product => (
+                <div key={product.id} className="flex items-center justify-between bg-white p-4 rounded-md shadow-sm border border-zinc-200">
+                  <div className="flex items-center gap-4">
+                    <img src={product.image} alt={product.name} className="w-16 h-16 object-cover rounded-md bg-zinc-100 mix-blend-multiply" />
+                    <div>
+                      <p className="text-[10px] font-bold tracking-widest text-brand-accent uppercase">{product.brand}</p>
+                      <p className="font-bold text-zinc-900 uppercase">{product.name}</p>
+                      <p className="text-sm font-semibold text-zinc-500">${typeof product.price === 'number' ? product.price.toLocaleString('es-CO') : product.price}</p>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => handleDelete(product.id)}
+                    className="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-bold text-xs uppercase tracking-widest rounded-md transition-colors"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

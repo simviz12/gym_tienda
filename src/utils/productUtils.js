@@ -42,6 +42,12 @@ export const getProducts = () => {
   return defaultProducts;
 };
 
+export const deleteProduct = (id) => {
+  const products = getProducts();
+  const updated = products.filter(p => p.id !== id);
+  localStorage.setItem('titan-products', JSON.stringify(updated));
+};
+
 export const addProduct = (product) => {
   const products = getProducts();
   const newProduct = {
