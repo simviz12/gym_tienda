@@ -40,7 +40,13 @@ export default function AdminPanel() {
       ...formData,
       price: parseInt(formData.price),
       flavors: formData.flavors.split(',').map(s => s.trim()),
-      sizes: formData.sizes.split(',').map(s => s.trim())
+      sizes: formData.sizes.split(',').map(s => {
+        const [name, price] = s.split('=');
+        return {
+          name: name.trim(),
+          price: price ? parseInt(price.trim()) : parseInt(formData.price)
+        };
+      })
     };
 
     addProduct(product);
@@ -148,8 +154,9 @@ export default function AdminPanel() {
               </div>
               
               <div>
-                <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-2">Presentaciones (Separados por coma)</label>
-                <input required type="text" name="sizes" value={formData.sizes} onChange={handleChange} className="w-full border border-zinc-300 p-3 rounded-md focus:ring-2 focus:ring-brand-accent focus:border-transparent" placeholder="2 Lbs, 5 Lbs" />
+                <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-2">Presentaciones y Precios (Opcional)</label>
+                <input required type="text" name="sizes" value={formData.sizes} onChange={handleChange} className="w-full border border-zinc-300 p-3 rounded-md focus:ring-2 focus:ring-brand-accent focus:border-transparent" placeholder="Ej. 1 Lb=120000, 5 Lbs=350000" />
+                <p className="mt-1 text-[10px] text-zinc-500">Formato: Nombre=Precio, separados por coma. Si no pones precio, usará el precio base.</p>
               </div>
             </div>
 

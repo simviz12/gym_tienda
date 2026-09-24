@@ -92,6 +92,12 @@ export default function Catalog() {
     document.body.style.overflow = 'auto';
   };
 
+  const normalizedSizes = selectedProduct ? (selectedProduct.sizes || ['Única']).map(s => 
+    typeof s === 'string' ? { name: s, price: selectedProduct.price } : s
+  ) : [];
+  const activeSizeObj = normalizedSizes.find(s => s.name === selectedSize) || normalizedSizes[0];
+  const displayPrice = activeSizeObj?.price || selectedProduct?.price || 0;
+
   const modalContent = selectedProduct && (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-12 bg-zinc-900/80 backdrop-blur-sm transition-opacity" style={{ position: 'fixed' }}>
       
@@ -121,7 +127,7 @@ export default function Catalog() {
           <div className="pb-3 md:pb-4 shrink-0">
             <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-brand-accent uppercase mb-1 md:mb-2 block">{selectedProduct.brand}</span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black mb-1 md:mb-2 text-zinc-900 uppercase leading-none">{selectedProduct.name}</h2>
-            <p className="text-lg md:text-2xl font-bold mb-3 md:mb-5 text-zinc-700">{formatPrice(selectedProduct.price)}</p>
+            <p className="text-lg md:text-2xl font-bold mb-3 md:mb-5 text-zinc-700">{formatPrice(displayPrice)}</p>
             
             <div className="w-10 h-[2px] md:h-[3px] bg-zinc-200 mb-3 md:mb-5"></div>
             
@@ -150,17 +156,17 @@ export default function Catalog() {
           <div className="mb-6 md:mb-8 shrink-0">
             <span className="text-[9px] md:text-[11px] font-bold tracking-[0.15em] text-zinc-900 uppercase block mb-2">Presentación / Peso</span>
             <div className="grid grid-cols-4 gap-1.5 md:gap-2">
-              { (selectedProduct.sizes || ['Única']).map(size => (
+              { normalizedSizes.map(sizeObj => (
                 <button 
-                  key={size}
-                  onClick={() => setSelectedSize(size)}
+                  key={sizeObj.name}
+                  onClick={() => setSelectedSize(sizeObj.name)}
                   className={`h-8 md:h-10 flex items-center justify-center text-[10px] md:text-xs font-bold transition-all duration-300 uppercase ${
-                    selectedSize === size 
+                    selectedSize === sizeObj.name 
                       ? 'border-2 border-brand-accent text-brand-accent bg-red-50 shadow-sm' 
                       : 'border-2 border-zinc-200 bg-white text-zinc-500 hover:border-zinc-400 hover:text-zinc-900'
                   }`}
                 >
-                  {size}
+                  {sizeObj.name}
                 </button>
               ))}
             </div>
@@ -185,7 +191,7 @@ export default function Catalog() {
             
             <button 
               onClick={() => {
-                addToCart(selectedProduct, quantity, selectedSize, selectedFlavor);
+                addToCart({ ...selectedProduct, price: displayPrice }, quantity, selectedSize, selectedFlavor);
                 closeModal();
               }}
               className="flex-1 bg-brand-accent hover:bg-red-700 text-white h-10 md:h-12 font-bold tracking-[0.2em] text-[10px] md:text-[11px] transition-all duration-300 uppercase flex items-center justify-center rounded-sm shadow-md"
