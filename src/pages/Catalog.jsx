@@ -6,34 +6,9 @@ import { X, LayoutGrid, List, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import onLogo from '../assets/on-logo.png';
 
-const genericSuppImage1 = 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=600&auto=format&fit=crop';
-const genericSuppImage2 = 'https://images.unsplash.com/photo-1558017487-06bf9f82613a?q=80&w=600&auto=format&fit=crop';
-const genericSuppImage3 = 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?q=80&w=600&auto=format&fit=crop';
+import { getProducts } from '../utils/productUtils';
 
-// Base products
-const baseProducts = [
-  { name: '100% Whey Gold Standard', category: 'Proteínas', brand: 'Optimum Nutrition', price: 350000, description: 'La proteína de suero más vendida del mundo.', image: genericSuppImage1, flavors: ['Chocolate', 'Vainilla', 'Fresa'] },
-  { name: 'Platinum Creatine', category: 'Creatinas', brand: 'MuscleTech', price: 120000, description: 'Creatina monohidratada micronizada pura.', image: genericSuppImage2, flavors: ['Sin Sabor'] },
-  { name: 'C4 Original Pre-Workout', category: 'Pre-Entrenos', brand: 'Cellucor', price: 160000, description: 'Energía explosiva, resistencia muscular.', image: genericSuppImage3, flavors: ['Fruit Punch', 'Blue Razz', 'Sandía'] },
-  { name: 'Nitrotech Ripped', category: 'Proteínas', brand: 'MuscleTech', price: 280000, description: 'Proteína aislada con fórmula para pérdida de peso.', image: genericSuppImage1, flavors: ['Chocolate Fudge', 'French Vanilla'] },
-  { name: 'Syntha-6', category: 'Proteínas', brand: 'BSN', price: 210000, description: 'Matriz de proteínas ultra-premium de sabor increíble.', image: genericSuppImage2, flavors: ['Chocolate Milkshake', 'Vanilla Ice Cream'] },
-  { name: 'Creatine Drive', category: 'Creatinas', brand: 'Nutrex', price: 95000, description: 'Creatina monohidrato de rápida absorción.', image: genericSuppImage3, flavors: ['Sin Sabor'] },
-  { name: 'No-Xplode', category: 'Pre-Entrenos', brand: 'BSN', price: 185000, description: 'El pre-entreno legendario rediseñado.', image: genericSuppImage1, flavors: ['Green Apple', 'Watermelon'] },
-  { name: 'ISO 100', category: 'Proteínas', brand: 'Dymatize', price: 420000, description: 'Aislado de proteína de suero hidrolizada súper rápida.', image: genericSuppImage2, flavors: ['Gourmet Chocolate', 'Gourmet Vanilla'] },
-  { name: 'Amino X', category: 'Pre-Entrenos', brand: 'BSN', price: 130000, description: 'BCAAs efervescentes para recuperación y resistencia.', image: genericSuppImage3, flavors: ['Fruit Punch', 'Watermelon'] },
-];
-
-// Generamos 27 productos multiplicando los originales para poder probar la paginación de 20 por página
-const allProducts = [];
-for (let i = 0; i < 3; i++) {
-  baseProducts.forEach((p, index) => {
-    allProducts.push({
-      ...p,
-      id: index + 1 + (i * 10),
-      name: `${p.name} ${i > 0 ? `V${i+1}` : ''}`.trim(),
-    });
-  });
-}
+const allProducts = getProducts();
 
 const brands = [
   { id: 'all', label: 'VER TODO', name: 'ALL', className: '' },

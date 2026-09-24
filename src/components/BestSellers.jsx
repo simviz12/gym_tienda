@@ -3,35 +3,9 @@ import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
-const products = [
-  {
-    id: 1,
-    name: '100% Whey Gold Standard',
-    brand: 'Optimum Nutrition',
-    price: '$350.000',
-    description: 'La proteína de suero más vendida del mundo. Ideal para recuperación muscular rápida post-entreno con 24g de proteína por servicio.',
-    image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=600&auto=format&fit=crop',
-    flavors: ['Chocolate', 'Vainilla', 'Fresa']
-  },
-  {
-    id: 2,
-    name: 'Platinum Creatine',
-    brand: 'MuscleTech',
-    price: '$120.000',
-    description: 'Creatina monohidratada micronizada pura. Aumenta la fuerza, potencia y el rendimiento en tus entrenamientos más intensos.',
-    image: 'https://images.unsplash.com/photo-1579722821273-0f110b5eb946?q=80&w=600&auto=format&fit=crop',
-    flavors: ['Sin Sabor']
-  },
-  {
-    id: 3,
-    name: 'C4 Original Pre-Workout',
-    brand: 'Cellucor',
-    price: '$160.000',
-    description: 'Energía explosiva, resistencia muscular y bombeos increíbles. El pre-entreno clásico para llevar tus rutinas al siguiente nivel.',
-    image: 'https://images.unsplash.com/photo-1558017487-06bf9f82613a?q=80&w=600&auto=format&fit=crop',
-    flavors: ['Fruit Punch', 'Blue Razz', 'Sandía']
-  }
-];
+import { getProducts } from '../utils/productUtils';
+
+const products = getProducts().slice(0, 3); // Solo mostrar 3 en best sellers
 
 export default function BestSellers() {
   const { addToCart } = useCart();
@@ -89,7 +63,7 @@ export default function BestSellers() {
           <div className="pb-3 md:pb-4 shrink-0">
             <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-brand-accent uppercase mb-1 md:mb-2 block">{selectedProduct.brand}</span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black mb-1 md:mb-2 text-zinc-900 uppercase leading-none">{selectedProduct.name}</h2>
-            <p className="text-lg md:text-2xl font-bold mb-3 md:mb-5 text-zinc-700">{selectedProduct.price}</p>
+            <p className="text-lg md:text-2xl font-bold mb-3 md:mb-5 text-zinc-700">${typeof selectedProduct.price === 'number' ? selectedProduct.price.toLocaleString('es-CO') : selectedProduct.price}</p>
             
             <div className="w-10 h-[2px] md:h-[3px] bg-zinc-200 mb-3 md:mb-5"></div>
             
@@ -202,7 +176,7 @@ export default function BestSellers() {
               
               <div className="text-center w-full px-2 md:px-4 flex flex-col items-center">
                 <h3 className="font-bold font-serif text-lg md:text-xl uppercase text-zinc-900 mb-1 md:mb-2 transition-colors">{product.name}</h3>
-                <p className="text-zinc-500 text-sm md:text-base mb-4 md:mb-6 font-semibold">{product.price}</p>
+                <p className="text-zinc-500 text-sm md:text-base mb-4 md:mb-6 font-semibold">${typeof product.price === 'number' ? product.price.toLocaleString('es-CO') : product.price}</p>
                 
                 <button className="w-full bg-white border-2 border-zinc-200 py-3 md:py-3.5 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-800 transition-colors hover:border-zinc-900 hover:bg-zinc-900 hover:text-white">
                   Ver Detalles
