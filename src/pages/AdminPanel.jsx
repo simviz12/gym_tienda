@@ -101,6 +101,7 @@ export default function AdminPanel() {
                   <option value="Pre-Entrenos">Pre-Entrenos</option>
                   <option value="Aminoácidos">Aminoácidos</option>
                   <option value="Quemadores">Quemadores</option>
+                  <option value="Recuperación">Recuperación</option>
                 </select>
               </div>
             </div>

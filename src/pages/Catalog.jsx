@@ -207,7 +207,7 @@ export default function Catalog() {
         <h2 className="text-4xl md:text-6xl font-serif font-black mb-8 text-zinc-900 uppercase">Productos</h2>
         
         <div className="flex justify-start md:justify-center gap-6 md:gap-12 mb-8 border-b border-zinc-200 mx-auto overflow-x-auto w-full px-4 no-scrollbar">
-          {['ALL', 'Proteínas', 'Creatinas', 'Pre-Entrenos', 'Aminoácidos', 'Quemadores'].map(cat => (
+          {['ALL', 'Proteínas', 'Creatinas', 'Pre-Entrenos', 'Aminoácidos', 'Quemadores', 'Recuperación'].map(cat => (
             <button 
               key={cat}
               onClick={() => setSelectedCategory(cat)}
